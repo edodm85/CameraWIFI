@@ -64,3 +64,10 @@ So the client receives: "sRt" - Bytes image - "sTp"
 3. ENABLE AUTOFOCUS: Send the string "focusON"
 
 4. DISABLE AUTOFOCUS: Send the string "focusOFF"  
+
+
+## License
+
+> Copyright (C) 2018 edodm85.  
+> Licensed under the MIT license.  
+> (See the [LICENSE](https://github.com/edodm85/CameraWIFI/blob/master/LICENSE) file for the whole license text.)
