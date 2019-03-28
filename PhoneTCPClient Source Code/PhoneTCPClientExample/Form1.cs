@@ -179,6 +179,14 @@ namespace PhoneTCPClientExample
                             }                        
                         }
                     }
+                    else
+                    {
+                        for (int i = 0; i < bytesread; i++)
+                        {
+                            rawimageOriginal[iTotalRead + i] = dataReceive[i];
+                        }
+                        iTotalRead += bytesread;                     
+                    }
                 }
                 catch (Exception e)
                 {
