@@ -1,9 +1,0 @@
-D:\Win\Git\test\PhoneTCPClientExample\PhoneTCPClientExample\bin\Debug\PhoneTCPClientExample.exe.config
-D:\Win\Git\test\PhoneTCPClientExample\PhoneTCPClientExample\bin\Debug\PhoneTCPClientExample.exe
-D:\Win\Git\test\PhoneTCPClientExample\PhoneTCPClientExample\bin\Debug\PhoneTCPClientExample.pdb
-D:\Win\Git\test\PhoneTCPClientExample\PhoneTCPClientExample\obj\Debug\PhoneTCPClientExample.csprojResolveAssemblyReference.cache
-D:\Win\Git\test\PhoneTCPClientExample\PhoneTCPClientExample\obj\Debug\PhoneTCPClientExample.Form1.resources
-D:\Win\Git\test\PhoneTCPClientExample\PhoneTCPClientExample\obj\Debug\PhoneTCPClientExample.Properties.Resources.resources
-D:\Win\Git\test\PhoneTCPClientExample\PhoneTCPClientExample\obj\Debug\PhoneTCPClientExample.csproj.GenerateResource.Cache
-D:\Win\Git\test\PhoneTCPClientExample\PhoneTCPClientExample\obj\Debug\PhoneTCPClientExample.exe
-D:\Win\Git\test\PhoneTCPClientExample\PhoneTCPClientExample\obj\Debug\PhoneTCPClientExample.pdb

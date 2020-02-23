@@ -89,12 +89,16 @@ namespace PhoneTCPClientExample
         /// <param name="e"></param>
         private void buttonAcqNewImage_Click(object sender, EventArgs e)
         {
-            if (oTCPClient != null)
+            try
             {
-                byte[] stringByte = Encoding.ASCII.GetBytes("singleSNAP");
-               
-                stream.Write(stringByte, 0, stringByte.Length);
-            }
+                if (oTCPClient != null)
+                {
+                    byte[] stringByte = Encoding.ASCII.GetBytes("singleSNAP");
+
+                    stream.Write(stringByte, 0, stringByte.Length);
+                }
+            }catch(Exception ex)
+            { }
         }
 
 
