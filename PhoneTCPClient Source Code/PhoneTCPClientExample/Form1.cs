@@ -11,16 +11,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Edo.Base.Protocol;
 
 namespace PhoneTCPClientExample
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
 
+        PktOverTcp oPktOverTcp = new PktOverTcp();
 
         // Create a TCP/IP  socket.
         TcpClient oTCPClient;
@@ -29,6 +27,13 @@ namespace PhoneTCPClientExample
         Byte[] dataReceive;
         Int32 bytesread;
         String stringData;
+
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
 
 
         /// <summary>
@@ -93,9 +98,10 @@ namespace PhoneTCPClientExample
             {
                 if (oTCPClient != null)
                 {
-                    byte[] stringByte = Encoding.ASCII.GetBytes("singleSNAP");
+                    //byte[] stringByte = Encoding.ASCII.GetBytes("singleSNAP");
+                    byte[] bCmd = oPktOverTcp.createPkt(new byte[] { 0x10 }, PktOverTcp.eMsgType.CMD);
 
-                    stream.Write(stringByte, 0, stringByte.Length);
+                    stream.Write(bCmd, 0, bCmd.Length);
                 }
             }catch(Exception ex)
             { }
@@ -122,7 +128,23 @@ namespace PhoneTCPClientExample
                     bytesread = stream.Read(dataReceive, 0, dataReceive.Length);
                     stringData = System.Text.Encoding.ASCII.GetString(dataReceive, 0, bytesread);
 
-                    if (stringData.Contains("sRt") || stringData.Contains("sTp"))
+                    // decode
+                    RxDecode oPktBase = oPktOverTcp.decodePkt(dataReceive, bytesread);
+                    if (oPktBase != null && !oPktBase.bLostaFrame && (oPktBase.oPktBase.bArrayPayloadImage != null))
+                    {
+                        iTotalRead = oPktBase.oPktBase.bArrayPayloadImage.Length;
+                        imageDataTemp = oPktBase.oPktBase.bArrayPayloadImage;
+
+                        using (MemoryStream oMemory = new MemoryStream(imageDataTemp))
+                        {
+                            Image image = Image.FromStream(oMemory);
+
+                            pictureBox1.Image = image;
+                        }
+                    }
+
+
+                    /*if (stringData.Contains("sRt") || stringData.Contains("sTp"))
                     {
 
                         // sRt - bytes - sTp
@@ -190,7 +212,7 @@ namespace PhoneTCPClientExample
                             rawimageOriginal[iTotalRead + i] = dataReceive[i];
                         }
                         iTotalRead += bytesread;                     
-                    }
+                    }*/
                 }
                 catch (Exception e)
                 {
