@@ -98,8 +98,8 @@ namespace PhoneTCPClientExample
             {
                 if (oTCPClient != null)
                 {
-                    //byte[] stringByte = Encoding.ASCII.GetBytes("singleSNAP");
-                    byte[] bCmd = oPktOverTcp.createPkt(new byte[] { 0x10 }, PktOverTcp.eMsgType.CMD);
+                    //byte[] bCmd = Encoding.ASCII.GetBytes("singleSNAP");
+                    byte[] bCmd = oPktOverTcp.createPkt(new byte[] { }, PktOverTcp.eMsgType.CMD, PktOverTcp.eMsgCmd.START_GRAB);
 
                     stream.Write(bCmd, 0, bCmd.Length);
                 }
@@ -129,20 +129,25 @@ namespace PhoneTCPClientExample
                     stringData = System.Text.Encoding.ASCII.GetString(dataReceive, 0, bytesread);
 
                     // decode
-                    RxDecode oPktBase = oPktOverTcp.decodePkt(dataReceive, bytesread);
-                    if (oPktBase != null && !oPktBase.bLostaFrame && (oPktBase.oPktBase.bArrayPayloadImage != null))
+                    List<RxDecode> oPktBase = oPktOverTcp.decodePkt(dataReceive, bytesread);
+                    if (oPktBase.Count > 0)
                     {
-                        iTotalRead = oPktBase.oPktBase.bArrayPayloadImage.Length;
-                        imageDataTemp = oPktBase.oPktBase.bArrayPayloadImage;
-
-                        using (MemoryStream oMemory = new MemoryStream(imageDataTemp))
+                        foreach (RxDecode oPktBaseTemp in oPktBase)
                         {
-                            Image image = Image.FromStream(oMemory);
+                            if (oPktBaseTemp != null && !oPktBaseTemp.bLostaFrame && (oPktBaseTemp.oPktBase.bArrayPayload != null))
+                            {
+                                iTotalRead = oPktBaseTemp.oPktBase.bArrayPayload.Length;
+                                imageDataTemp = oPktBaseTemp.oPktBase.bArrayPayload;
 
-                            pictureBox1.Image = image;
+                                using (MemoryStream oMemory = new MemoryStream(imageDataTemp))
+                                {
+                                    Image image = Image.FromStream(oMemory);
+
+                                    pictureBox1.Image = image;
+                                }
+                            }
                         }
                     }
-
 
                     /*if (stringData.Contains("sRt") || stringData.Contains("sTp"))
                     {
