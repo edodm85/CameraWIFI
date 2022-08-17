@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Edo.Base.Protocol
+namespace Edo.Protocol
 {
     public class RxDecode
     {

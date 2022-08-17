@@ -11,7 +11,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Edo.Base.Protocol;
+using Edo.Protocol;
+using static Edo.Protocol.PktBase;
 
 namespace PhoneTCPClientExample
 {
@@ -98,9 +99,7 @@ namespace PhoneTCPClientExample
             {
                 if (oTCPClient != null)
                 {
-                    //byte[] bCmd = Encoding.ASCII.GetBytes("singleSNAP");
-                    byte[] bCmd = oPktOverTcp.createPkt(new byte[] { }, PktOverTcp.eMsgType.CMD, PktOverTcp.eMsgCmd.START_GRAB);
-
+                    byte[] bCmd = oPktOverTcp.createPkt(new byte[] { }, eMsgType.CMD, eMsgCmd.SINGLE_SNAP);
                     stream.Write(bCmd, 0, bCmd.Length);
                 }
             }catch(Exception ex)
@@ -110,8 +109,6 @@ namespace PhoneTCPClientExample
 
 
         int iTotalRead = 0;
-        bool bFoundStopCond;
-        Byte[] rawimageOriginal;
         byte[] imageDataTemp;
 
 
@@ -134,90 +131,31 @@ namespace PhoneTCPClientExample
                     {
                         foreach (RxDecode oPktBaseTemp in oPktBase)
                         {
-                            if (oPktBaseTemp != null && !oPktBaseTemp.bLostaFrame && (oPktBaseTemp.oPktBase.bArrayPayload != null))
+                            if (oPktBaseTemp != null)
                             {
-                                iTotalRead = oPktBaseTemp.oPktBase.bArrayPayload.Length;
-                                imageDataTemp = oPktBaseTemp.oPktBase.bArrayPayload;
-
-                                using (MemoryStream oMemory = new MemoryStream(imageDataTemp))
+                                switch (oPktBaseTemp.oPktBase.eType)
                                 {
-                                    Image image = Image.FromStream(oMemory);
+                                    case eMsgType.CMD_REPLY:
+                                        break;
 
-                                    pictureBox1.Image = image;
+                                    case eMsgType.IMAGE_REPLY:
+                                        iTotalRead = oPktBaseTemp.oPktBase.bArrayPayload.Length;
+                                        imageDataTemp = oPktBaseTemp.oPktBase.bArrayPayload;
+
+                                        using (MemoryStream oMemory = new MemoryStream(imageDataTemp))
+                                        {
+                                            Image image = Image.FromStream(oMemory);
+
+                                            pictureBox1.Image = image;
+                                        }
+
+                                        byte[] bCmd = oPktOverTcp.createPkt(new byte[] { }, eMsgType.CMD_REPLY, eMsgCmd.ACK);
+                                        stream.Write(bCmd, 0, bCmd.Length);
+                                        break;
                                 }
                             }
                         }
                     }
-
-                    /*if (stringData.Contains("sRt") || stringData.Contains("sTp"))
-                    {
-
-                        // sRt - bytes - sTp
-                        if (stringData.Contains("sRt"))
-                        {
-                            bFoundStopCond = false;
-                            rawimageOriginal = new Byte[1920 * 1080 * 3];
-
-
-                            stringData = stringData.Replace("sRt", "");
-                            bytesread = bytesread - "sRt".Length;
-
-                            iTotalRead = 0;
-
-                            if (bytesread > 0)
-                            {
-                                for (int i = 0; i < bytesread; i++)
-                                {
-                                    rawimageOriginal[i] = dataReceive[i + "sRt".Length];
-                                }
-                                iTotalRead += bytesread;
-                            }
-
-                            if (stringData.Contains("sTp"))
-                            {
-                                bFoundStopCond = true;
-                            }
-                        }
-                        if (stringData.Contains("sTp"))
-                        {
-
-                            if (!bFoundStopCond)
-                            {
-                                if (bytesread != "sTp".Length)
-                                {
-                                    for (int i = 0; i < bytesread - "sTp".Length; i++)
-                                    {
-                                        rawimageOriginal[iTotalRead + i] = dataReceive[i];
-                                    }
-                                    iTotalRead += bytesread;
-                                }
-                            }
-
-                            iTotalRead = iTotalRead - "sTp".Length;
-
-                            imageDataTemp = new byte[iTotalRead];
-
-                            for (int i = 0; i < iTotalRead; i++)
-                            {
-                                imageDataTemp[i] = rawimageOriginal[i];
-                            }
-
-                            using (MemoryStream oMemory = new MemoryStream(imageDataTemp))
-                            {
-                                Image image = Image.FromStream(oMemory);
-
-                                pictureBox1.Image = image;
-                            }                        
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < bytesread; i++)
-                        {
-                            rawimageOriginal[iTotalRead + i] = dataReceive[i];
-                        }
-                        iTotalRead += bytesread;                     
-                    }*/
                 }
                 catch (Exception e)
                 {
