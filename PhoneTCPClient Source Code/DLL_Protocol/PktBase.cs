@@ -28,7 +28,8 @@ namespace Edo.Protocol
         {
             CMD = 0x1,
             CMD_REPLY = 0x02,
-            IMAGE_REPLY = 0x5,
+            IMAGE = 0x5,
+            IMAGE_ACK = 0x6,
         }
 
         public enum eMsgCmd
@@ -60,6 +61,7 @@ namespace Edo.Protocol
             {
                 case eMsgType.CMD:
                 case eMsgType.CMD_REPLY:
+                case eMsgType.IMAGE_ACK:
                     if (bArrayPayload != null)
                     {
                         iArraySize = bArrayPayload.Length + 9;      // Start(1Byte) + Version(1Byte) + Lenght(4Bytes) + Type(1Byte) + bCmd(1Byte) + Payload + END(1Byte)
@@ -71,7 +73,7 @@ namespace Edo.Protocol
                     }
                     break;
 
-                case eMsgType.IMAGE_REPLY:
+                case eMsgType.IMAGE:
                     iArraySize = bArrayPayload.Length + 13;     // Start(1Byte) + Version(1Byte) + Lenght(4Bytes) + Type(1Byte) + W(2Bytes) + H(2Bytes) + F(1Byte) + Payload + END(1Byte)
                     iLenght = bArrayPayload.Length + 7;         // Payload + END(1Byte) + type(1Byte) + W(2Bytes) + H(2Bytes) + F(1Byte)
                     break;
@@ -101,13 +103,14 @@ namespace Edo.Protocol
                 {
                     case eMsgType.CMD:
                     case eMsgType.CMD_REPLY:
+                    case eMsgType.IMAGE_ACK:
                         allByteArray[7] = (byte)eCmd;
                         // PAYLOAD  (NBytes)
                         if ((bArrayPayload != null) && (bArrayPayload.Length > 0))
                             Array.Copy(bArrayPayload, 0, allByteArray, 8, bArrayPayload.Length);
                         break;
 
-                    case eMsgType.IMAGE_REPLY:
+                    case eMsgType.IMAGE:
                         // PAYLOAD
                         // WIDTH
                         allByteArray[7] = ((byte)((usWidth >> 8) & 0xFF));

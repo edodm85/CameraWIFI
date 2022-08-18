@@ -35,7 +35,7 @@ namespace Edo.Protocol
         // Build image PKT
         public byte[] createPkt(Int16 w, Int16 h, byte f, byte[] payload)
         {
-            oPktBase.eType = eMsgType.IMAGE_REPLY;     // IMAGE
+            oPktBase.eType = eMsgType.IMAGE;     // IMAGE
 
             oPktBase.usWidth = w;
             oPktBase.usHeight = h;
@@ -88,7 +88,7 @@ namespace Edo.Protocol
                     if (iCount > 6)
                     {
                         bool blCheckPkt = (bBufferRx[1] == oPktBase.bVersion)                                                         
-                            && ((bBufferRx[6] == (byte)eMsgType.CMD) | (bBufferRx[6] == (byte)eMsgType.CMD_REPLY) | (bBufferRx[6] == (byte)eMsgType.IMAGE_REPLY));    
+                            && ((bBufferRx[6] == (byte)eMsgType.CMD) | (bBufferRx[6] == (byte)eMsgType.CMD_REPLY) | (bBufferRx[6] == (byte)eMsgType.IMAGE));    
 
                         if (blCheckPkt)
                         {
@@ -118,12 +118,9 @@ namespace Edo.Protocol
 
                                             case eMsgType.CMD_REPLY:
                                                 // CMD REPLY
-                                                Array.Clear(bBufferRx, 0, bBufferRx.Length);
-                                                iLenghtPkt = 0;
-                                                iCount = 0;
                                                 break;
 
-                                            case eMsgType.IMAGE_REPLY:
+                                            case eMsgType.IMAGE:
                                                 // image width, height and format
                                                 oPktBaseReceive.usWidth = (Int16)(((bBufferRx[7] & 0xFF) << 8) | (bBufferRx[8] & 0xFF));
                                                 oPktBaseReceive.usHeight = (Int16)(((bBufferRx[9] & 0xFF) << 8) | (bBufferRx[10] & 0xFF));

@@ -138,7 +138,7 @@ namespace PhoneTCPClientExample
                                     case eMsgType.CMD_REPLY:
                                         break;
 
-                                    case eMsgType.IMAGE_REPLY:
+                                    case eMsgType.IMAGE:
                                         iTotalRead = oPktBaseTemp.oPktBase.bArrayPayload.Length;
                                         imageDataTemp = oPktBaseTemp.oPktBase.bArrayPayload;
 
@@ -149,7 +149,7 @@ namespace PhoneTCPClientExample
                                             pictureBox1.Image = image;
                                         }
 
-                                        byte[] bCmd = oPktOverTcp.createPkt(new byte[] { }, eMsgType.CMD_REPLY, eMsgCmd.ACK);
+                                        byte[] bCmd = oPktOverTcp.createPkt(new byte[] { }, eMsgType.IMAGE_ACK, eMsgCmd.ACK);
                                         stream.Write(bCmd, 0, bCmd.Length);
                                         break;
                                 }
