@@ -10,7 +10,7 @@ Camera WIFI is not a traditional Camera App but it’s something different.
 I writed this Application to create a stream of images between Phone and PC.
 
 You can download from Google Play here:
-* [Camera WIFI FREE](https://play.google.com/store/apps/details?id=com.edodm85.cameratcp.free)
+* [Camera WIFI FREE (with ADS)](https://play.google.com/store/apps/details?id=com.edodm85.cameratcp.free)
 * [Camera WIFI (without ADS)](https://play.google.com/store/apps/details?id=com.edodm85.cameratcp.paid)
 
 <br>
