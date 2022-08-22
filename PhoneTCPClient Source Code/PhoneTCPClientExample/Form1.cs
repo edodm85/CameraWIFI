@@ -11,15 +11,23 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Edo.Protocol;
-using static Edo.Protocol.PktBase;
+using Edo.DOT_Protocol;
+using static Edo.DOT_Protocol.DOTBase;
+
+/*
+ * Author: Edo
+ * Date: 08/22/22
+ * Notes: Client example
+ * Github: https://github.com/edodm85/CameraWIFI
+*/
+
 
 namespace PhoneTCPClientExample
 {
     public partial class Form1 : Form
     {
 
-        PktOverTcp oPktOverTcp = new PktOverTcp();
+        DataOverTcp oPktOverTcp = new DataOverTcp();
 
         // Create a TCP/IP  socket.
         TcpClient oTCPClient;

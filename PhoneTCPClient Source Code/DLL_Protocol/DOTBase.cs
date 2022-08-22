@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Edo.Protocol
+
+namespace Edo.DOT_Protocol
 {
-    public class PktBase
+    public class DOTBase
     {
         public byte bStart = (byte)0xAA;
         public byte bVersion = (byte)0x1;

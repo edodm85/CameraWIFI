@@ -184,7 +184,7 @@
             this.ClientSize = new System.Drawing.Size(754, 455);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
-            this.Text = "PhoneTCPClient Example v1.6";
+            this.Text = "PhoneTCPClient Example v1.7";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);

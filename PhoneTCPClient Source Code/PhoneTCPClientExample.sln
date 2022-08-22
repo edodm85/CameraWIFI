@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneTCPClientExample", "PhoneTCPClientExample\PhoneTCPClientExample.csproj", "{2203E79E-0BEE-4E48-802E-E7FCC9A760F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLL_Protocol", "DLL_Protocol\DLL_Protocol.csproj", "{C9114254-5C8E-4196-8BAD-CE7F37AA70CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLL_DOT_Protocol", "DLL_Protocol\DLL_DOT_Protocol.csproj", "{C9114254-5C8E-4196-8BAD-CE7F37AA70CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

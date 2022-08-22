@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PktBase.cs" />
-    <Compile Include="PktOverTcp.cs" />
+    <Compile Include="DOTBase.cs" />
+    <Compile Include="DataOverTcp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RxDecode.cs" />
   </ItemGroup>

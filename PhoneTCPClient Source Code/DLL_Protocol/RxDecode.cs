@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Edo.Protocol
+namespace Edo.DOT_Protocol
 {
     public class RxDecode
     {
-        public PktBase oPktBase;
+        public DOTBase oPktBase;
         public bool bLostaFrame = false;
     }
 }

@@ -80,9 +80,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DLL_Protocol\DLL_Protocol.csproj">
+    <ProjectReference Include="..\DLL_Protocol\DLL_DOT_Protocol.csproj">
       <Project>{c9114254-5c8e-4196-8bad-ce7f37aa70cd}</Project>
-      <Name>DLL_Protocol</Name>
+      <Name>DLL_DOT_Protocol</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

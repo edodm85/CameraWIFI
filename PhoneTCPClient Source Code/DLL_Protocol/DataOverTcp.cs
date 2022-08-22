@@ -4,20 +4,27 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Edo.Protocol.PktBase;
+using static Edo.DOT_Protocol.DOTBase;
 
-namespace Edo.Protocol
+/*
+ * Author: Edo
+ * Date: 08/22/22
+ * Notes: DOT class
+ * Github: https://github.com/edodm85/DOT_Protocol_Specification
+*/
+
+namespace Edo.DOT_Protocol
 {
-    public class PktOverTcp
+    public class DataOverTcp
     {
-        PktBase oPktBase = null;
-        PktBase oPktBaseReceive = null;
+        DOTBase oPktBase = null;
+        DOTBase oPktBaseReceive = null;
 
 
-        public PktOverTcp()
+        public DataOverTcp()
         {
-            oPktBase = new PktBase();
-            oPktBaseReceive = new PktBase();
+            oPktBase = new DOTBase();
+            oPktBaseReceive = new DOTBase();
         }
 
 
