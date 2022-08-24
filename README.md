@@ -17,9 +17,9 @@ You can download from Google Play here:
 
 ## How does it work?
 
-1. Connect Phone and PC over the same network
+1. Connect Phone and PC over the same WIFI network
 
-2. Open the Application Camera WIFI on phone
+2. Open the Application "Camera WIFI" on phone
 
 ![](Resources/Screen1%20CameraWIFI.png)
 
