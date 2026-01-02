@@ -6,32 +6,67 @@
 
 ## What is Camera WIFI?
 
-Camera WIFI is not a traditional Camera App but it’s something different.
-I writed this Application to create a stream of images between Phone and PC.
+Camera WIFI is not a traditional camera application, but it’s something different.
+I developed this application to enable a high-performance stream of images directly from a Phone to a PC.
 
 You can download from Google Play here:
 * [Camera WIFI FREE (with ADS)](https://play.google.com/store/apps/details?id=com.edodm85.cameratcp.free)
 * [Camera WIFI (without ADS)](https://play.google.com/store/apps/details?id=com.edodm85.cameratcp.paid)
 
+
+<br>
+
+## Supported protocols?
+
+The application supports the following three protocols over TCP:
+
+* DOT: custom protocol, described at this [link](https://github.com/edodm85/DOT_Protocol_Specification)
+
+* MJPEG over HTTP (APP v3.1.1 or higher): is an extremely simple and effective video streaming method, based on the sequential delivery of independent JPEG images through a single persistent HTTP connection.
+
+* ASCII (deprecated): first custom protocol
+
+
+
+
 <br>
 
 ## How does it work?
 
-1. Connect Phone and PC over the same WIFI network
+If you select the DOT protocol:
 
-2. Open the Application "Camera WIFI" on phone
+1. Connect your phone and PC over the same WIFI network.
+
+2. Open the "Camera WIFI" app on your phone.
+
+3. Select the DOT protocol and press the "START CAMERA" button.
 
 ![](Resources/Screen1%20CameraWIFI.png)
 
-3. Open the PC client PhoneTCPClient
+4. Open the PC client: PhoneTCPClient.
 
-4. Insert the ip address of the Phone and press Connect
+5. Insert the IP address of the Phone and press "Connect".
 
 ![](Resources/Screen3%20PhoneTCPClient.PNG)
 
-5. Press snap button and acquire the image
+6. Press the "Snap" button and acquire the image
 
 ![](Resources/Screen4%20PhoneTCPClient.PNG)
+
+<br>
+
+If you select the MJPEG protocol:
+
+1. Connect your phone and PC over the same WIFI network.
+
+2. Open the "Camera WIFI" app on your phone.
+
+3. Select the MJPEG protocol and press the "START CAMERA" button.
+
+4. Open the "Client_MJPEG.html" script in your web browser (NOTE: change the IP:PORT inside the script).
+
+![](Resources/Screen5_MJPEG.png)
+
 
 <br>
 
@@ -96,6 +131,6 @@ So the client receives: "sRt" - Bytes image - "sTp"
 
 ## License
 
-> Copyright (C) 2018 edodm85.  
+> Copyright (C) 2026 edodm85.  
 > Licensed under the MIT license.  
 > (See the [LICENSE](https://github.com/edodm85/CameraWIFI/blob/master/LICENSE) file for the whole license text.)

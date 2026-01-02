@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MJPEG Stream Viewer</title>
+    <style>
+        canvas { border: 2px solid black; max-width: 100%; height: auto; }
+        #status { font-family: sans-serif; color: red; }
+    </style>
+</head>
+<body>
+    <h1>Stream MJPEG</h1>
+    <div id="status">In attesa di dati...</div>
+    <canvas id="videoCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('videoCanvas');
+        const ctx = canvas.getContext('2d');
+        const status = document.getElementById('status');
+        const url = "http://192.168.153.186:2000"; // Sostituisci con il tuo IP
+
+        async function startStream() {
+            try {
+                const response = await fetch(url);
+                const reader = response.body.getReader();
+                let chunks = new Uint8Array();
+
+                status.innerText = "Connected, receiving frames...";
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    // Unisci i nuovi dati a quelli precedenti
+                    let newChunks = new Uint8Array(chunks.length + value.length);
+                    newChunks.set(chunks);
+                    newChunks.set(value, chunks.length);
+                    chunks = newChunks;
+
+                    // Cerca l'inizio (0xFF 0xD8) e la fine (0xFF 0xD9) del JPEG
+                    let startIndex = -1;
+                    let endIndex = -1;
+
+                    for (let i = 0; i < chunks.length - 1; i++) {
+                        if (chunks[i] === 0xFF && chunks[i+1] === 0xD8) startIndex = i;
+                        if (chunks[i] === 0xFF && chunks[i+1] === 0xD9) {
+                            endIndex = i + 2;
+                            if (startIndex !== -1) break;
+                        }
+                    }
+
+                    // Se abbiamo un frame completo, visualizzalo
+                    if (startIndex !== -1 && endIndex !== -1) {
+                        const frameData = chunks.slice(startIndex, endIndex);
+                        const blob = new Blob([frameData], { type: 'image/jpeg' });
+                        const img = new Image();
+                        
+                        img.onload = () => {
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            ctx.drawImage(img, 0, 0);
+                            URL.revokeObjectURL(img.src);
+                        };
+                        img.src = URL.createObjectURL(blob);
+
+                        // Rimuovi il frame processato dai dati accumulati
+                        chunks = chunks.slice(endIndex);
+                    }
+                }
+            } catch (err) {
+                status.innerText = "Errore: " + err.message;
+                console.error(err);
+            }
+        }
+
+        startStream();
+    </script>
+</body>
+</html>
