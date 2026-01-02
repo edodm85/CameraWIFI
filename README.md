@@ -72,7 +72,7 @@ If you select the MJPEG protocol:
 
 ## Building PhoneTCPClient
 
-For build [PhoneTCPClient](https://github.com/edodm85/CameraWIFI/tree/master/PhoneTCPClient/PhoneTCPClient_Source_Code) you need Visual Studio 2013 or above.
+For build [PhoneTCPClient](https://github.com/edodm85/CameraWIFI/tree/master/PhoneTCPClient/PhoneTCPClient_Source) you need Visual Studio 2013 or above.
 
 <br>
 
